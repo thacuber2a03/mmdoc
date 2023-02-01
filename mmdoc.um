@@ -98,19 +98,25 @@ fn getRecord(lines: []str, i: ^int): Record {
 	)
 	ph := phdocs
 
+	i^++
 	for _:=0; i^ < len(lines); i^++ {
 		ln := std.trim(lines[i^])
 
 		if ph == phdocs && !hasPrefix(ln, commentPrefix, 0) {
 			dend = i^
 			ph = phcontent
-		} else if ph == phcontent && hasPrefix(ln, commentPrefix + endMark, 0) {
+		}
+
+		if hasPrefix(ln, commentPrefix + endMark, 0) {
 			cend = i^
 			break
 		}
 	}
 
 	n := slice(std.trim(lines[dstart]), len(commentPrefix + beginMark))
+
+	if dend == 0 { dend = i^ }
+	if cend == 0 { cend = dend }
 
 	da := slice(lines, dstart + 1, dend)
 	d := ""
