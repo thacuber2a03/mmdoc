@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en">
+<head><meta charset="utf8"><style>font-family: sans-serif;</style></head>
+<body>
+<h2>Record</h2>
+
+<code><pre>type Record* = struct {
+	line: int
+	name: str
+	docs: str
+	content: str
+}
+</pre></code>
+<p>Struct holding one documentation item.
+</p>
+
+</body></html><!DOCTYPE html><html lang="en">
+<head><meta charset="utf8"><style>font-family: sans-serif;</style></head>
+<body>
+<h2> Configuration variables</h2>
+
+<code><pre>var (
+	commentPrefix: str = "//"
+	beginMark: str = "~~"
+	endMark: str = "~~"
+	url: str = ""
+)
+</pre></code>
+<p></p>
+
+</body></html><!DOCTYPE html><html lang="en">
+<head><meta charset="utf8"><style>font-family: sans-serif;</style></head>
+<body>
+<h2>fn toMd</h2>
+
+<code><pre>fn (this: ^Record) toMd(): str {
+</pre></code>
+<p>Converts a record to markdown.
+</p>
+
+</body></html>
