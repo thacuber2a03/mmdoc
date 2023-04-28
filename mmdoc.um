@@ -154,7 +154,7 @@ fn help() {
 		"\t-e <end pattern> (defaults to ~~)\n" +
 		"\t-c <comment prefix> (defaults to //)\n" +
 		"\t-u <file url> (%d is substituted to line number)\n" +
-		"\t-l - set the language string (used for markdown syntax highlighting)\n"
+		"\t-l <lang-name> (defaults to \"\")\n" +
 		"\t-h - export to html\n" +
 		"\t-s - export to standalone html\n\n" +
 		"Example:\n" +
