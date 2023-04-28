@@ -17,6 +17,7 @@ var (
 	beginMark: str = "~~"
 	endMark: str = "~~"
 	url: str = ""
+	lang: str = ""
 )
 //~~
 
@@ -30,8 +31,8 @@ fn (this: ^Record) toMd(): str {
 	}
 	return sprintf(
 		"## %s\n\n" +
-		"```\n%s```\n\n" +
-		"%s\n", name, this.content, this.docs)
+		"```%s\n%s```\n\n" +
+		"%s\n", lang, name, this.content, this.docs)
 }
 
 fn (this: ^Record) toHtml(): str {
@@ -153,6 +154,7 @@ fn help() {
 		"\t-e <end pattern> (defaults to ~~)\n" +
 		"\t-c <comment prefix> (defaults to //)\n" +
 		"\t-u <file url> (%d is substituted to line number)\n" +
+		"\t-l - set the language string (used for markdown syntax highlighting)\n"
 		"\t-h - export to html\n" +
 		"\t-s - export to standalone html\n\n" +
 		"Example:\n" +
@@ -195,6 +197,9 @@ fn main() {
 			exportType = html
 		case 's':
 			exportType = htmlStandalone
+		case 'l':
+			arg++
+			lang = std.argv(arg)
 		default:
 			help()
 			return
