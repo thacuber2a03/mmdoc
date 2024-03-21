@@ -195,7 +195,7 @@ fn main() {
 
 	if arg >= argc { help(); return }
 
-	f, err := std.fopen(std.argv(arg), "r")
+	f, err := std.fopen(std.argv(arg), "rb")
 	std.exitif(err)
 
 	data, err := std.freadall(f)
