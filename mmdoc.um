@@ -88,7 +88,7 @@ fn getRecord(lines: []str, i: ^int): Record {
 
 	i^++
 	for _:=0; i^ < len(lines); i^++ {
-		ln := std.trim(lines[i^])
+		ln := std::trim(lines[i^])
 
 		if ph == phdocs && !hasPrefix(ln, commentPrefix, 0) {
 			dend = i^
@@ -101,7 +101,7 @@ fn getRecord(lines: []str, i: ^int): Record {
 		}
 	}
 
-	n := slice(std.trim(lines[dstart]), len(commentPrefix + beginMark))
+	n := slice(std::trim(lines[dstart]), len(commentPrefix + beginMark))
 
 	if dend == 0 { dend = i^ }
 	if cend == 0 { cend = dend }
@@ -109,7 +109,7 @@ fn getRecord(lines: []str, i: ^int): Record {
 	da := slice(lines, dstart + 1, dend)
 	d := ""
 	for j in da {
-		d += std.trim(slice(da[j], 2)) + "\n"
+		d += std::trim(slice(da[j], 2)) + "\n"
 	}
 
 	ca := slice(lines, dend, cend)
@@ -125,7 +125,7 @@ fn getRecords(lines: []str): []Record {
 	recs := []Record{}
 
 	for i:=0; i < len(lines); i++ {
-		ln := std.trim(lines[i])
+		ln := std::trim(lines[i])
 		if !hasPrefix(ln, commentPrefix + beginMark, 0) { continue }
 
 		recs = append(recs, getRecord(lines, &i))
@@ -160,33 +160,33 @@ fn main() {
 
 	exportType := markdown
 
-	argc := std.argc()
+	argc := std::argc()
 	arg := 1
 	for _:=0; arg < argc; arg++ {
-		a := std.argv(arg)
+		a := std::argv(arg)
 		if len(a) != 2 || a[0] != '-' { break }
 		if arg >= argc - 1 { help(); return }
 
 		switch a[1] {
 		case 'b':
 			arg++
-			beginMark = std.argv(arg)
+			beginMark = std::argv(arg)
 		case 'e':
 			arg++
-			endMark = std.argv(arg)
+			endMark = std::argv(arg)
 		case 'c':
 			arg++
-			commentPrefix = std.argv(arg)
+			commentPrefix = std::argv(arg)
 		case 'u':
 			arg++
-			url = std.argv(arg)
+			url = std::argv(arg)
 		case 'h':
 			exportType = html
 		case 's':
 			exportType = htmlStandalone
 		case 'l':
 			arg++
-			lang = std.argv(arg)
+			lang = std::argv(arg)
 		default:
 			help()
 			return
@@ -195,15 +195,15 @@ fn main() {
 
 	if arg >= argc { help(); return }
 
-	f, err := std.fopen(std.argv(arg), "rb")
-	std.exitif(err)
+	f, err := std::fopen(std::argv(arg), "rb")
+	std::exitif(err)
 
-	data, err := std.freadall(f)
-	std.exitif(err)
+	data, err := std::freadall(f)
+	std::exitif(err)
 	recs := getRecords(split(str(data), "\n"))
 
-	err = std.fclose(f)
-	std.exitif(err)
+	err = std::fclose(f)
+	std::exitif(err)
 
 	for i in recs {
 		switch exportType {
