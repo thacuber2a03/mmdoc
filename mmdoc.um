@@ -11,7 +11,7 @@ type Record* = struct {
 }
 //~~
 
-//~~ Configuration variables
+//~~Configuration variables
 var (
 	commentPrefix: str = "//"
 	beginMark: str = "~~"
@@ -44,6 +44,14 @@ fn (this: ^Record) toHtml(): str {
 		"<h2>%s</h2>\n\n" +
 		"<code><pre>%s</pre></code>\n" +
 		"<p>%s</p>\n", name, this.content, this.docs)
+}
+
+fn (this: ^Record) toTerm(): str {
+	return sprintf(
+		"\x1b[1m%s\x1b[0m\n\n" +
+		"\x1b[3m%s\x1b[0m\n" +
+		"%s\n---------\n", this.name, this.content, this.docs
+	)
 }
 
 fn hasPrefix(s, p: str, i: int): bool {
@@ -144,6 +152,7 @@ fn help() {
 		"\t-l <lang-name> (defaults to \"\")\n" +
 		"\t-h - export to html\n" +
 		"\t-s - export to standalone html\n\n" +
+		"\t-t - export to terminal\n\n" +
 		"Example:\n" +
 		"\t//~~my_function\n" +
 		"\t// Description of my function\n" +
@@ -156,6 +165,7 @@ fn main() {
 		markdown = 0
 		html
 		htmlStandalone
+		term
 	)
 
 	exportType := markdown
@@ -184,6 +194,8 @@ fn main() {
 			exportType = html
 		case 's':
 			exportType = htmlStandalone
+		case 't':
+			exportType = term
 		case 'l':
 			arg++
 			lang = std::argv(arg)
@@ -211,6 +223,8 @@ fn main() {
 			printf("%s\n", recs[i].toMd())
 		case html:
 			printf("%s\n", recs[i].toHtml())
+		case term:
+			printf("%s\n", recs[i].toTerm())
 		case htmlStandalone:
 			printf("<!DOCTYPE html><html lang=\"en\">\n" +
 				"<head><meta charset=\"utf8\"></head>\n" +
