@@ -72,13 +72,12 @@ fn split*(s, p: str): []str {
 	for i:=0; i < len(s); i++ {
 		if hasPrefix(s, p, i) {
 			o = append(o, slice(s, e, i))
-			i += len(p)
-			e = i
+			i += len(p)-1
+			e = i+1
 		}
 	}
 
 	o = append(o, slice(s, e))
-
 	return o
 }
 
@@ -126,7 +125,7 @@ fn getRecord(lines: []str, i: ^int): Record {
 		c += ca[j] + "\n"
 	}
 
-	return Record{ dend, n, d, c }
+	return Record{ dend+1, n, d, c }
 }
 
 fn getRecords(lines: []str): []Record {
